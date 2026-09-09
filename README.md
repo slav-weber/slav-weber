@@ -30,4 +30,4 @@ Stack: PHP · WordPress as an engineering platform (custom blocks, headless, Com
 
 - LinkedIn: https://www.linkedin.com/in/slava-weber/
 - Email: slav.weber@gmail.com
-- Languages: English (fluent), Ukrainian, Russian
+- Languages: English (my working language for the last 10 years, daily, in a remote German team), Ukrainian, Russian
