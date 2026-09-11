@@ -4,19 +4,19 @@
 
 Based in Ukraine, EU time zone (UTC+2/+3). Open to remote roles and contract / B2B engagements, EU time zone or worldwide.
 
-## In progress
+## Published
 
-Three repositories started from scratch in September 2026, none public yet:
+Two repositories carved out of the private LLM systems I built in 2026. Each contains only what a reader can check: the modules, their tests, and the numbers with the run they came from.
 
-1. `legal-rag-evalset` — measuring an AI system's quality and publishing the numbers together with what they do not show. By hand: 40 gold questions (some the system must refuse) and `metrics.py`; `METHOD.md` written before the questions. The report gives numbers measured on a private predecessor (a Ukrainian legal RAG). Numbers to watch (pending): recall@k, precision@1, hallucination rate, abstain rate.
-2. `norm-lookup-mcp` — an MCP server over a statute index where the model can only cite what exists. The statute index and the rejection test are written by hand; FastMCP tooling, packaging and CI are written by a coding agent from my spec. Number to watch: 50/50 fabricated references rejected — pending.
-3. `arbiter-kit` v0.1 — "the model decides, code verifies and applies": an agent cannot hand out an item that does not exist or spend money that is not there. A toy world, a strict pydantic response schema (intent plus effect tokens from a closed vocabulary), a hand-written applier, an adversarial-player spec. Number to watch: zero illegal transfers over 200+ hostile turns — adversarial run pending. Inspired by a private game-mod project.
+**[legal-rag-evals](https://github.com/slav-weber/legal-rag-evals)** — the retrieval pipeline, citation gate and evaluation harness of a Ukrainian statute RAG. Hybrid retrieval (dense, full-text and lemma channels fused by reciprocal-rank fusion, an exact-lookup route, a cross-encoder reranker); generation where the model may cite only the candidate IDs it was handed, so a fabricated citation is structurally impossible rather than discouraged; and a harness that measures recall@k, precision@1 and MRR per question class, classifies answers, and gates on replay noise measured at temperature 0. 280 tests run offline in one command. The citation class went from 0.167 to 1.000 recall@10 once exact lookups got a route of their own.
+
+**[llm-npc-arbiter](https://github.com/slav-weber/llm-npc-arbiter)** — the decision layer of a game mod where a language model plays every character. The model decides; code verifies and applies. One chokepoint for every durable change, a whitelist of designer-authored effects with guards and named invariants, a validated state ledger, a graded dice check, and an adversarial run of hostile model turns: 17 attempts, zero unauthorised writes. Standard library only. Includes the knowledge graph the characters retrieve from, rendered as an interactive map.
 
 ## How I work with coding agents
 
-Two private LLM projects in 2026 (the legal RAG and the game-mod project mentioned above) were built with a coding agent (Claude Code) from specs, acceptance criteria and eval questions I wrote; nearly all of their commits carry the agent's Co-Authored-By trailer.
+Both systems were built with a coding agent (Claude Code) from specifications, acceptance criteria and evaluation questions I wrote, and I accepted the work against evidence rather than by eye. Nearly all of their commits carry the agent's Co-Authored-By trailer, and each repository's README has a "How this was built" section that says what was mine, what was the agent's, and what changed when the code was extracted for publication.
 
-In the three repositories above, the core module is written by hand and named in that repository's README; the agent types the rest from my spec, and I read every line before accepting it. Agent commits keep their trailers, and each repository's README has a "How this was built" section: files by hand, files by agent, approximate share of lines, what was rejected or rewritten, what was verified by hand and when.
+What I bring to that work is the part an agent does not supply: where the boundaries go, which invariant must never break, what to measure, and what the numbers do not show.
 
 ## Background
 
